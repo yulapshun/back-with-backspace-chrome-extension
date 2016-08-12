@@ -1,0 +1,16 @@
+{
+  "content_scripts": [
+    {
+      "js": [
+        "main.js"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
+  ],
+  "version": "1.0",
+  "description": "Restore backspace go back in chrome",
+  "name": "Back with Backspace",
+  "manifest_version": 2
+}
