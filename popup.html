@@ -1,17 +1,29 @@
 <html>
   <head>
     <style type="text/css" rel="stylesheet">
-      #disable-toggle.disabled {
-       background-color: #48CFAD;
+     #disable-toggle {
+       border: none;
+       padding: 10px 10px;
+       color: #312F2F;
+       cursor: pointer;
+     }
+     #disable-toggle.disabled {
+       background-color: #60DBC8;
+     }
+     #disable-toggle.enabled {
+       background-color: #EF515C;
      }
 
-     #disable-toggle.enabled {
-       background-color: #CCD1D9;
+     #disable-toggle.disabled:hover {
+       background-color: #84DCCF;
+     }
+     #disable-toggle.enabled:hover {
+       background-color: #EF626C;
      }
     </style>
   </head>
   <body>
-    <button id="disable-toggle"></button>
+    <button id="disable-toggle" class="disabled">Disabled</button>
     <script src="./popup.js"></script>
   </body>
 </html>
