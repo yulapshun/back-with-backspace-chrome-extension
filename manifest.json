@@ -4,6 +4,7 @@
   "name": "Back with Backspace",
   "manifest_version": 2,
   "permissions": [
+    "tabs",
     "storage"
   ],
   "icons": { 

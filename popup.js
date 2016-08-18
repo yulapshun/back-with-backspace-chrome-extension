@@ -21,6 +21,13 @@ chrome.storage.local.get('disabled', function(data) {
   updateDisableToggle();
 });
 
+chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+  var url = tabs[0].url;
+  var parser = document.createElement('a');
+  parser.href = url;
+  excludeUrl.value = parser.protocol + '//' + parser.hostname + '/';
+});
+
 disableToggle.addEventListener('click', function() {
   disabled = !disabled;
   chrome.storage.local.set({'disabled': disabled}, function() {
