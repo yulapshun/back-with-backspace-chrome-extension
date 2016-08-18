@@ -23,6 +23,7 @@
 
 	if (match) {
 	  disabled = true;
+	  return;
 	}
       });
     }
