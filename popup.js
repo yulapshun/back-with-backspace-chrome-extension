@@ -51,7 +51,6 @@ excludeBtn.addEventListener('click', function() {
   }
 
   chrome.storage.local.get('exclude', function(data) {
-    console.log(data);
     if (Array.isArray(data.exclude)) {
       data.exclude.push({
 	method: method,
