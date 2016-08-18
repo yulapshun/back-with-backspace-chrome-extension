@@ -1,12 +1,30 @@
 <html>
   <head>
     <style type="text/css" rel="stylesheet">
-     #disable-toggle {
-       border: none;
-       padding: 10px 10px;
+     body {
+       width: 300px;
        color: #312F2F;
-       cursor: pointer;
      }
+
+     .heading {
+       margin-bottom: 6px;
+     }
+     
+     .divider {
+       height: 1px;
+       width: 100%;
+       background: #A0A0A0;
+       margin-top: 14px;
+       margin-bottom: 10px;
+     }
+
+     button {
+       border: none;
+       cursor: pointer;
+       height: 25px;
+       padding: 0px 10px;
+     }
+
      #disable-toggle.disabled {
        background-color: #60DBC8;
      }
@@ -20,10 +38,60 @@
      #disable-toggle.enabled:hover {
        background-color: #EF626C;
      }
+
+     #exclude-box {
+       width: 300px;
+     }
+
+     #exclude-select {
+       background: transparent;
+       float: left;
+       height: 21px;
+     }
+     #exclude-url-container {
+       display: block;
+       overflow: hidden;
+       padding-left: 3px;
+     }
+     #exclude-url {
+       height: 21px;
+       width: 100%;
+     }
+     #exclude-btn {
+       background: #DDDDDD;
+       margin-top: 8px;
+     }
+     #exclude-btn:hover {
+       background: #E1E1E1;
+     }
     </style>
   </head>
   <body>
-    <button id="disable-toggle" class="disabled">Disabled</button>
+
+    <div>
+      <div class="heading">Back with Backspace is currently <span id="disable-display"></span></div>
+      <button id="disable-toggle" class="disabled"></button>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div>
+      <div class="heading">Exclude url</div>
+      <div>
+	<div id="exclude-box">
+	</div>
+	<select id="exclude-select">
+	  <option>starts with</option>
+	  <option>ends with</option>
+	  <option>regex</option>
+	</select>
+	<span id="exclude-url-container">
+	  <input id="exclude-url" type="text" />
+	</span>
+	<div style="float:right"></div>
+	<button id="exclude-btn">Exclude</button>
+      </div>
+    </div>
     <script src="./popup.js"></script>
   </body>
 </html>
