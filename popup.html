@@ -64,6 +64,27 @@
      #exclude-btn:hover {
        background: #E1E1E1;
      }
+
+     .excluded-url {
+       position: relative;
+       display: inline;
+       width: 100%;
+       display: block;
+       overflow: auto;
+       line-height: 30px;
+     }
+     .excluded-remove-btn {
+       position: absolute;
+       top: 0;
+       right: 0;
+       width: 10px;
+       height: 30px;
+       display: inline;
+       background-image: url(cross.svg);
+       background-repeat: no-repeat;
+       background-position: center;
+       cursor: pointer;
+     }
     </style>
   </head>
   <body>
@@ -90,6 +111,11 @@
 	</span>
 	<div style="float:right"></div>
 	<button id="exclude-btn">Exclude</button>
+
+	<div class="divider"></div>
+
+	<div class="heading">Excluded url(s)</div>
+	<div id="excluded-list"></div>
       </div>
     </div>
     <script src="./popup.js"></script>
