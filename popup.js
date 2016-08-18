@@ -90,17 +90,17 @@ excludeBtn.addEventListener('click', function() {
   }
 
   chrome.storage.local.get('exclude', function(data) {
+    var excludedObj = {
+      method: method,
+      url: url
+    };
     if (Array.isArray(data.exclude)) {
-      data.exclude.push({
-	method: method,
-	url: url
-      });
+      data.exclude.push(excludedObj);
     } else {
-      data.exclude = [{
-	method: method,
-	url: url
-      }];
+      data.exclude = [excludedObj];
     }
-    chrome.storage.local.set({'exclude': data.exclude});
+    chrome.storage.local.set({'exclude': data.exclude}, function() {
+      updateExcludedList();
+    });
   });
 });
