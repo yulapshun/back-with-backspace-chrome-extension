@@ -17,6 +17,14 @@ function updateDisableToggle() {
   }
 }
 
+function updateBrowserAction() {
+  if (disabled) {
+    chrome.browserAction.setIcon({path: './icon_disabled.png'});
+  } else {
+    chrome.browserAction.setIcon({path: './icon.png'});
+  }
+}
+
 function updateExcludedList() {
   chrome.storage.local.get('exclude', function(data) {
     excludedList.innerHTML = '';
@@ -71,6 +79,7 @@ disableToggle.addEventListener('click', function() {
   disabled = !disabled;
   chrome.storage.local.set({'disabled': disabled}, function() {
     updateDisableToggle();
+    updateBrowserAction();
   });
 });
 
