@@ -1,12 +1,12 @@
 (function() {
 
-  var disable = true;
+  var disabled = true;
 
-  function refresh() {
+  function updateDisabled() {
     chrome.storage.local.get(['disabled', 'exclude'], function(data) {
       disabled = !!data.disabled;
       var exclude = data.exclude;
-      if (Array.isArray(exclude)) {
+      if (!disabled && Array.isArray(exclude)) {
 	exclude.forEach(function (n) {
 	  var match = false;
 	  switch (n.method) {
@@ -21,17 +21,15 @@
 	      match = regex.test(window.location.href);
 	      break;
 	  }
-
 	  if (match) {
 	    disabled = true;
-	    return;
 	  }
 	});
       }
     });
   }
 
-  refresh();
+  updateDisabled();
 
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 8) {
@@ -47,8 +45,8 @@
   });
 
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.action == "refresh") {
-      refresh();
+    if (request.type == 'toggle') {
+      disabled = !!request.disabled;
     }
   });
 })();

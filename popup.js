@@ -9,19 +9,9 @@ function updateDisableToggle() {
   if (disabled) {
     disableToggle.innerHTML = 'Enable';
     disableToggle.className = 'disabled';
-    chrome.browserAction.setIcon({path: './icon_disabled.png'});
   } else {
     disableToggle.innerHTML = 'Disable';
     disableToggle.className = 'enabled';
-    chrome.browserAction.setIcon({path: './icon.png'});
-  }
-}
-
-function updateBrowserAction() {
-  if (disabled) {
-    chrome.browserAction.setIcon({path: './icon_disabled.png'});
-  } else {
-    chrome.browserAction.setIcon({path: './icon.png'});
   }
 }
 
@@ -63,11 +53,7 @@ function updateExcludedList() {
 }
 
 function updateContent() {
-  chrome.tabs.query({}, function (tabs){
-    tabs.forEach(function(tab) {
-      chrome.tabs.sendMessage(tab.id, {action: 'refresh'});
-    });
-  });
+  chrome.runtime.sendMessage({type: 'toggle'});
 }
 
 chrome.storage.local.get('disabled', function(data) {
@@ -88,7 +74,6 @@ disableToggle.addEventListener('click', function() {
   disabled = !disabled;
   chrome.storage.local.set({'disabled': disabled}, function() {
     updateDisableToggle();
-    updateBrowserAction();
     updateContent();
   });
 });
