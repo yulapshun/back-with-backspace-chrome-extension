@@ -39,7 +39,11 @@
 	if (!!focused || disabled) {
 	  return;
 	}
-	history.back();
+	if (e.shiftKey) {
+	  history.forward();
+	} else {
+	  history.back();
+	}
       });
     }
   });

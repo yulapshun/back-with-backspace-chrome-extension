@@ -1,6 +1,4 @@
 function sendUpdate(tab, disabled) {
-  console.log(tab.url);
-  console.log(disabled);
   chrome.tabs.sendMessage(tab.id, {type: 'toggle', disabled: disabled});
 }
 
