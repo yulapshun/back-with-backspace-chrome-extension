@@ -1,3 +1,4 @@
+var disableDisplay = document.querySelector('#disable-display');
 var disableToggle = document.querySelector('#disable-toggle');
 var excludeBtn = document.querySelector('#exclude-btn');
 var excludeSelect = document.querySelector('#exclude-select');
@@ -9,9 +10,11 @@ var disabled = false;
 
 function updateDisableToggle() {
   if (disabled) {
+    disableDisplay.innerHTML = 'disabled';
     disableToggle.innerHTML = 'Enable';
     disableToggle.className = 'disabled';
   } else {
+    disableDisplay.innerHTML = 'enabled';
     disableToggle.innerHTML = 'Disable';
     disableToggle.className = 'enabled';
   }
