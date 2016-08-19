@@ -6,6 +6,10 @@
        color: #312F2F;
      }
 
+     .hidden {
+       display: none;
+     }
+     
      .heading {
        margin-bottom: 6px;
      }
@@ -65,6 +69,11 @@
        background: #E1E1E1;
      }
 
+     .excluded-label {
+       border-right: 1px solid #A0A0A0;
+       padding-right: 10px;
+       margin-right: 10px;
+     }
      .excluded-url {
        position: relative;
        display: inline;
@@ -102,9 +111,9 @@
 	<div id="exclude-box">
 	</div>
 	<select id="exclude-select">
-	  <option value="starts_with">starts with</option>
-	  <option value="ends_with">ends with</option>
-	  <option value="regex">regex</option>
+	  <option value="starts_with">Starts with</option>
+	  <option value="ends_with">Ends with</option>
+	  <option value="regex">RegExp</option>
 	</select>
 	<span id="exclude-url-container">
 	  <input id="exclude-url" type="text" />
@@ -112,9 +121,9 @@
 	<div style="float:right"></div>
 	<button id="exclude-btn">Exclude</button>
 
-	<div class="divider"></div>
+	<div class="divider" id="excluded-url-divider"></div>
 
-	<div class="heading">Excluded url(s)</div>
+	<div class="heading" id="excluded-url-heading">Excluded url(s)</div>
 	<div id="excluded-list"></div>
       </div>
     </div>

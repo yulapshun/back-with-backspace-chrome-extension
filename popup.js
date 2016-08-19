@@ -2,6 +2,8 @@ var disableToggle = document.querySelector('#disable-toggle');
 var excludeBtn = document.querySelector('#exclude-btn');
 var excludeSelect = document.querySelector('#exclude-select');
 var excludeUrl = document.querySelector('#exclude-url');
+var excludedUrlDivider = document.querySelector('#excluded-url-divider');
+var excludedUrlHeading = document.querySelector('#excluded-url-heading');
 var excludedList = document.querySelector('#excluded-list');
 var disabled = false;
 
@@ -19,9 +21,19 @@ function updateExcludedList() {
   chrome.storage.local.get('exclude', function(data) {
     excludedList.innerHTML = '';
     var exclude = data.exclude || [];
+    if (exclude.length === 0) {
+      excludedUrlDivider.className += ' hidden';
+      excludedUrlHeading.className += ' hidden';
+    } else {
+      excludedUrlDivider.className = excludedUrlDivider.className.replace(' hidden', '');
+      excludedUrlHeading.className = excludedUrlHeading.className.replace(' hidden', '');
+    }
     exclude.forEach(function(n, i) {
       var excludedUrl = document.createElement('div');
+      var label = document.createElement('span');
       var removeBtn = document.createElement('span');
+
+      label.className = 'excluded-label';
 
       removeBtn.className = 'excluded-remove-btn';
       removeBtn.addEventListener('click', function() {
@@ -35,16 +47,20 @@ function updateExcludedList() {
       excludedUrl.className = 'excluded-url';
       switch (n.method) {
 	case 'starts_with':
-	  excludedUrl.innerHTML = n.url + '*';
+	  label.innerHTML = 'Starts with';
+	  excludedUrl.innerHTML = n.url;
 	  break;
 	case 'ends_with':
-	  excludedUrl.innerHTML = '*' + n.url;
+	  label.innerHTML = 'Ends with';
+	  excludedUrl.innerHTML = n.url;
 	  break;
 	case 'regex':
+	  label.innerHTML = 'RegExp';
 	  excludedUrl.innerHTML = n.url;
 	  break;
       }
 
+      excludedUrl.insertBefore(label, excludedUrl.firstChild);
       excludedUrl.appendChild(removeBtn);
 
       excludedList.appendChild(excludedUrl);
