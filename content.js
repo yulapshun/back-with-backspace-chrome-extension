@@ -2,32 +2,36 @@
 
   var disable = true;
 
-  chrome.storage.local.get(['disabled', 'exclude'], function(data) {
-    disabled = !!data.disabled;
-    var exclude = data.exclude;
-    if (Array.isArray(exclude)) {
-      exclude.forEach(function (n) {
-	var match = false;
-	switch (n.method) {
-	  case 'starts_with':
-	    match = n.url.startsWith(window.location.href);
-	    break;
-	  case 'ends_with':
-	    match = n.url.sWith(window.location.href);
-	    break;
-	  case 'regex':
-	    var regex = new RegExp(n.url);
-	    match = regex.test(window.location.href);
-	    break;
-	}
+  function refresh() {
+    chrome.storage.local.get(['disabled', 'exclude'], function(data) {
+      disabled = !!data.disabled;
+      var exclude = data.exclude;
+      if (Array.isArray(exclude)) {
+	exclude.forEach(function (n) {
+	  var match = false;
+	  switch (n.method) {
+	    case 'starts_with':
+	      match = window.location.href.startsWith(n.url);
+	      break;
+	    case 'ends_with':
+	      match = window.location.href.endsWith(n.url);
+	      break;
+	    case 'regex':
+	      var regex = new RegExp(n.url);
+	      match = regex.test(window.location.href);
+	      break;
+	  }
 
-	if (match) {
-	  disabled = true;
-	  return;
-	}
-      });
-    }
-  });
+	  if (match) {
+	    disabled = true;
+	    return;
+	  }
+	});
+      }
+    });
+  }
+
+  refresh();
 
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 8) {
@@ -39,6 +43,12 @@
 	}
 	history.back();
       });
+    }
+  });
+
+  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.action == "refresh") {
+      refresh();
     }
   });
 })();

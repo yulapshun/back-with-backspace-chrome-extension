@@ -38,6 +38,7 @@ function updateExcludedList() {
 	exclude.splice(i, 1);
 	chrome.storage.local.set({'exclude': exclude}, function() {
 	  updateExcludedList();
+	  updateContent();
 	});
       });
 
@@ -61,6 +62,14 @@ function updateExcludedList() {
   });
 }
 
+function updateContent() {
+  chrome.tabs.query({}, function (tabs){
+    tabs.forEach(function(tab) {
+      chrome.tabs.sendMessage(tab.id, {action: 'refresh'});
+    });
+  });
+}
+
 chrome.storage.local.get('disabled', function(data) {
   disabled = !!data.disabled;
   updateDisableToggle();
@@ -80,6 +89,7 @@ disableToggle.addEventListener('click', function() {
   chrome.storage.local.set({'disabled': disabled}, function() {
     updateDisableToggle();
     updateBrowserAction();
+    updateContent();
   });
 });
 
@@ -110,6 +120,7 @@ excludeBtn.addEventListener('click', function() {
     }
     chrome.storage.local.set({'exclude': data.exclude}, function() {
       updateExcludedList();
+      updateContent();
     });
   });
 });
